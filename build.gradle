@@ -1,0 +1,5 @@
+dependencies {
+  compile project(":moar-sugar")
+  compile "org.springframework.data:spring-data-commons:1.13.10.RELEASE"
+  compile "org.springframework.security:spring-security-core:4.2.4.RELEASE"
+}

@@ -175,8 +175,11 @@ public class Cost {
     $($(1), r);
   }
 
+  /**
+   * Add a descriptive about the current cost.
+   */
   public static void $(final String description) {
-    Exceptional.$(description);
+    debug(LOG, $(1), description);
   }
 
   /**
@@ -186,9 +189,10 @@ public class Cost {
     if (!trackDetailCosts) {
       return callable.call();
     }
-    final String startLabel = "START";
+    if (threadActivity.get() == null) {
+      return callable.call();
+    }
     final long clock = currentTimeMillis();
-    trace(LOG, startLabel, description);
     try {
       return callable.call();
     } finally {
@@ -284,11 +288,7 @@ public class Cost {
    * Accumulate costs based on description
    */
   private static void accumulate(final String description, final long elapsed) {
-    final Activity activity = threadActivity.get();
-    if (activity == null) {
-      return;
-    }
-    activity.accumulate(description, elapsed);
+    threadActivity.get().accumulate(description, elapsed);
   }
 
   /**

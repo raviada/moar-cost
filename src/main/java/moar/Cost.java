@@ -7,7 +7,6 @@ import static moar.JsonUtil.debug;
 import static moar.JsonUtil.toJson;
 import static moar.JsonUtil.trace;
 import static moar.JsonUtil.warn;
-import static moar.UriUtil.shortUriDesc;
 import static org.slf4j.LoggerFactory.getLogger;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -224,7 +223,7 @@ public class Cost {
       String desc;
       if (isRestExchange(r, method, args)) {
         final URI uri = (URI) args[0];
-        desc = shortUriDesc(uri);
+        desc = uri.toString();
       } else if (clz == Statement.class && method.getName().equals("execute") && args.length == 1
           && args[0] instanceof String) {
         final String sql = (String) args[0];
